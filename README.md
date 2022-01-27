@@ -15,6 +15,7 @@
 - [Self Study on SageMaker](https://github.com/gonsoomoon-ml/Self-Study-On-SageMaker)
   
 ## Key Features
+![key_features_persona](images/key_features_persona.png)
 
 ### [PTN1. Real-time Inference](key_features/ptn_1_realtime-inference)
 
@@ -50,6 +51,7 @@ SageMaker 멀티 컨테이너 엔드포인트를 사용하면 서로 다른 serv
 
 
 ## From PoC to Production
+![production_persona](images/production_persona.png)
 
 ### [PTN1. A/B Testing](production/ptn_1_ab_test)
 
