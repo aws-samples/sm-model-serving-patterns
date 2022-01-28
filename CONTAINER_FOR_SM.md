@@ -9,14 +9,9 @@
 Amazon SageMaker는 완전 관리형 머신 러닝 플랫폼으로 피쳐 전처리, 모델 훈련 및 배포의 머신 러닝 일련의 과정에 도커 컨테이너를 활용합니다. 컨테이너 내에 런타임, 라이브러리, 코드 등 필요한 모든 것이 패키징되기에, 로컬 환경에서 프로덕션 환경까지 일관성을 가지고 동일한 환경에서 모델을 훈련하고 배포할 수 있습니다.
 AWS에서는 이미 딥러닝 프레임워크별로 각 태스크에 적합한(전처리, 훈련, 추론, 엘라스틱 추론 등) 전용 컨테이너를 AWS의 Docker 레지스트리 서비스인 Amazon Elastic Container Registry (이하 ECR) 에서 관리하고 있기 때문에 여러분은 컨테이너 빌드에 대한 고민을 하실 필요가 없습니다. 물론, 도커 파일들은 모두 오픈 소스로 공개되어 있기 때문에 도커 파일을 기반으로 여러분만의 컨테이너를 빌드해서 ECR로 등록할 수도 있습니다.
 
-도커 컨테이너 개념에 대해 처음 접하시는 분들은 먼저 아래 링크를 통해 주요 개념을 이해하는 것을 권장 드립니다.
+도커 컨테이너 개념과 ECR을 처음 접하시는 분들은 먼저 아래 링크를 통해 주요 개념을 이해하는 것을 권장 드립니다.
 - https://docs.docker.com/get-started/
-
-## Amazon Elastic Container Registry (ECR)
-SageMaker의 모든 컨테이너는 AWS의 Docker 레지스트리 서비스(https://aws.amazon.com/ecr/)인 Amazon Elastic Container Registry(ECR)에서 호스팅됩니다.
-
-ECR은 리전 기반 서비스이므로 SageMaker를 지원하는 각 리전에 대한 컨테이너 목록을 아래 링크에서 찾을 수 있습니다.
-
+- https://aws.amazon.com/ecr
 
 ## Built-in algorithm Containers
 SageMaker에서 제공하고 있는 17가지의 빌트인 알고리즘은 훈련 및 배포에 필요한 코드가 사전 패키징되어 있기에 별도의 코드를 작성할 필요가 없습니다.
