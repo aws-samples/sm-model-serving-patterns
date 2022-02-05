@@ -50,21 +50,6 @@ SageMaker 멀티 컨테이너 엔드포인트를 사용하면 서로 다른 serv
 추론 파이프라인은 단일 엔드포인트(single endpoint)에 2~5개 컨테이너(빌트인 컨테이너 or 사용자 정의 컨테이너)의 시퀀스를 단계(step)별로 연결합니다. 각 단계의 응답은 다음 단계의 추론 요청으로 사용되며, 이를 활용하여 PyTorch/TensorFlow/MXNet/scikit-learn/Spark ML 등의 다양한 프레임워크에 대한 모델 앙상블을 배포하거나 모델 전처리-추론-후처리 과정을 컨테이너로 분리하여 관리할 수 있습니다. 
 
 
-## From PoC to Production
-![production_persona](images/production_persona.png)
-
-### [PTN1. A/B Testing](production/ptn_1_ab-test)
-
-프로덕션 ML 워크플로에서 데이터 과학자와 머신 러닝 엔지니어는 데이터/모델/컨셉 드리프트에 따른 재훈련, 하이퍼파라메터 튜닝, 피쳐 선택 등과 같은 다양한 방법들을 통해 모델을 개선합니다. 이 때 이전 모델과 신규 모델 간의 A/B 테스트를 수행함으로써, 신규 모델에 대한 검증을 충분히 해야겠죠. 그렇다면 A/B 테스트를 위해 엔드포인트를 재배포하거나 2개의 엔드포인트를 배포해야 할까요? 그렇지 않습니다. 프로덕션 Variant 기능을 사용하면, 각 variant에 대해 동일한 엔드포인트 뒤에서 여러 모델 또는 모델 버전을 테스트할 수 있습니다.
-
-### [PTN2. Blue/Green Deployment Guardrail](production/ptn_2_deployment-guardrail)
-
-SageMaker 배포 가드레일(Deployment Guardrail)은 프로덕션 환경에서 현재 모델에서 새 모델로 안전하게 업데이트하기 위한 완전 관리형 블루/그린(Blue/Green) 배포 가드레일 서비스입니다. 카나리(Canary) 및 선형(Linear)과 같은 트래픽 전환 모드를 사용하여 업데이트 과정에서 현재 모델에서 새 모델로 트래픽 전환 프로세스를 세부적으로 제어할 수 있습니다. 또한 문제를 조기에 포착하고 프로덕션에 영향을 미치지 않게 자동 롤백과 같은 보호 기능을 제공합니다.
-
-### [PTN3. End-to-end ML pipelines](production/ptn_3_ml-pipeline)
-
-SageMaker Pipelines은 ML 파이프라인과 CI/CD 파이프라인을 쉽고 편리하게 수행할 수 있는 관리형 서비스입니다. re:Invent 2020 서비스 런칭 이후 신규 기능들이 지속적으로 업데이트되고 있으며, 특히 2021년 8월 업데이트된 주요 기능인 Lambda Step을 사용하면 호스팅 엔드포인트 모델 배포를 비롯한 서버리스 작업들을 쉽게 수행할 수 있습니다. 또한 캐싱(caching) 기능을 사용하면 모든 파이프라인을 처음부터 재시작할 필요 없이 변경된 파라메터에 대해서만 빠르게 실험해볼 수 있습니다.
-
 ## Cost Optimization
 ![cost_optimization](images/cost_optimization_persona.png)
 
@@ -82,59 +67,25 @@ SageMaker Neo는 다양한 머신 러닝 프레임워크를 지원하며 정확�
 
 비싼 GPU 인스턴스를 배포 용도로 계속 띄워 놓게 되면 많은 비용이 발생할 수밖에 없고, 비용 절감을 위해 CPU 인스턴스를 쓰기에는 충분한 latency를 보장할 수 없습니다. 이럴 때 바로 Elastic Inference를 사용하시면 됩니다. Elastic Inference는 평소에는 CPU 인스턴스를 사용하다가 추론 시에 GPU 엑셀러레이터를 빌려오는 개념이며, 이를 통해 GPU의 컴퓨팅 파워를 사용하면서 GPU 인스턴스 대비 추론 비용을 최대 75%까지 절감할 수 있습니다. 호스트 인스턴스와 추론 가속 하드웨어를 분리할 수 있는 유연성이 있으므로 애플리케이션에 필요한 CPU, 메모리 및 기타 모든 리소스에 대해 하드웨어를 유연하게 최적화할 수 있습니다. 
 
-## References
 
-### Key Features
-#### Real-time Inference
-- [AWS Innovate 2021 - Amazon SageMaker 기반 사전 훈련된 딥러닝 모델 손쉽게 배포하기 (김대근 AIML SA)](https://www.youtube.com/watch?v=ZdOcrLKow3I)
-- [Developer Guide](https://docs.aws.amazon.com/sagemaker/latest/dg/realtime-endpoints.html)
+## From PoC to Production
+![production_persona](images/production_persona.png)
 
-#### Batch Inference
-- [AWS AI/ML Blog](https://aws.amazon.com/blogs/machine-learning/performing-batch-inference-with-tensorflow-serving-in-amazon-sagemaker/)
-- [Developer Guide](https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform.html)
+### [PTN1. A/B Testing](production/ptn_1_ab-test)
 
-#### Asynchronous Inference
-- [AWS AI/ML Blog](https://aws.amazon.com/ko/blogs/machine-learning/run-computer-vision-inference-on-large-videos-with-amazon-sagemaker-asynchronous-endpoints/)
-- [Developer Guide](https://docs.aws.amazon.com/sagemaker/latest/dg/async-inference.html)
+프로덕션 ML 워크플로에서 데이터 과학자와 머신 러닝 엔지니어는 데이터/모델/컨셉 드리프트에 따른 재훈련, 하이퍼파라메터 튜닝, 피쳐 선택 등과 같은 다양한 방법들을 통해 모델을 개선합니다. 이 때 이전 모델과 신규 모델 간의 A/B 테스트를 수행함으로써, 신규 모델에 대한 검증을 충분히 해야겠죠. 그렇다면 A/B 테스트를 위해 엔드포인트를 재배포하거나 2개의 엔드포인트를 배포해야 할까요? 그렇지 않습니다. 프로덕션 Variant 기능을 사용하면, 각 variant에 대해 동일한 엔드포인트 뒤에서 여러 모델 또는 모델 버전을 테스트할 수 있습니다.
 
-#### Lambda Serverless Inference
-- [AWS AI/ML Blog](https://aws.amazon.com/ko/blogs/korea/new-for-aws-lambda-container-image-support/)
-- [SageMaker Python SDK](https://sagemaker.readthedocs.io/en/stable/overview.html?highlight=lambdamodel#serverless-inference)
-- [AWS Builders Online - AWS Lambda 컨테이너 이미지 서비스 활용하기 (김태수 SA)](https://www.youtube.com/watch?v=tTg9Lp7Sqok)
-  
-#### SageMaker Serverless Inference
-- [AWS AI/ML Blog](https://aws.amazon.com/ko/blogs/machine-learning/deploying-ml-models-using-sagemaker-serverless-inference-preview/)
-- [Developer Guide](https://docs.aws.amazon.com/sagemaker/latest/dg/serverless-endpoints.html)
+### [PTN2. Blue/Green Deployment Guardrail](production/ptn_2_deployment-guardrail)
 
-#### Multi-container Endpoint
-- [AWS AI/ML Blog](https://aws.amazon.com/ko/blogs/machine-learning/deploy-multiple-serving-containers-on-a-single-instance-using-amazon-sagemaker-multi-container-endpoints/)
-- [Developer Guide](https://docs.aws.amazon.com/sagemaker/latest/dg/multi-container-endpoints.html)
+SageMaker 배포 가드레일(Deployment Guardrail)은 프로덕션 환경에서 현재 모델에서 새 모델로 안전하게 업데이트하기 위한 완전 관리형 블루/그린(Blue/Green) 배포 가드레일 서비스입니다. 카나리(Canary) 및 선형(Linear)과 같은 트래픽 전환 모드를 사용하여 업데이트 과정에서 현재 모델에서 새 모델로 트래픽 전환 프로세스를 세부적으로 제어할 수 있습니다. 또한 문제를 조기에 포착하고 프로덕션에 영향을 미치지 않게 자동 롤백과 같은 보호 기능을 제공합니다.
 
-#### Inference Pipeline
-- [AWS AI/ML Blog](https://aws.amazon.com/ko/blogs/machine-learning/preprocess-input-data-before-making-predictions-using-amazon-sagemaker-inference-pipelines-and-scikit-learn/)
-- [Developer Guide](https://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipelines.html)
+### [PTN3. End-to-end ML pipelines](production/ptn_3_ml-pipeline)
 
-### From PoC to Production
- 
-#### A/B Testing
-- [AWS AI/ML Blog](https://aws.amazon.com/ko/blogs/machine-learning/a-b-testing-ml-models-in-production-using-amazon-sagemaker/)
-- [AWS AI/ML Blog - Advanced](https://aws.amazon.com/ko/blogs/machine-learning/dynamic-a-b-testing-for-machine-learning-models-with-amazon-sagemaker-mlops-projects/)
-- [Developer Guide](https://docs.aws.amazon.com/sagemaker/latest/dg/model-ab-testing.html)
+SageMaker Pipelines은 ML 파이프라인과 CI/CD 파이프라인을 쉽고 편리하게 수행할 수 있는 관리형 서비스입니다. re:Invent 2020 서비스 런칭 이후 신규 기능들이 지속적으로 업데이트되고 있으며, 특히 2021년 8월 업데이트된 주요 기능인 Lambda Step을 사용하면 호스팅 엔드포인트 모델 배포를 비롯한 서버리스 작업들을 쉽게 수행할 수 있습니다. 또한 캐싱(caching) 기능을 사용하면 모든 파이프라인을 처음부터 재시작할 필요 없이 변경된 파라메터에 대해서만 빠르게 실험해볼 수 있습니다.
 
-#### Blue/Green Deployment Guardrail
-- [AWS AI/ML Blog](https://aws.amazon.com/ko/blogs/machine-learning/take-advantage-of-advanced-deployment-strategies-using-amazon-sagemaker-deployment-guardrails/)
-- [Developer Guide](https://docs.aws.amazon.com/sagemaker/latest/dg/deployment-guardrails.html)
 
-#### End-to-end ML pipelines 
-- [AWS AI/ML Blog](https://aws.amazon.com/ko/blogs/machine-learning/building-automating-managing-and-scaling-ml-workflows-using-amazon-sagemaker-pipelines/)
-- [AWS AI/ML Blog - Advanced](https://aws.amazon.com/ko/blogs/machine-learning/building-a-scalable-machine-learning-pipeline-for-ultra-high-resolution-medical-images-using-amazon-sagemaker/)
-- [Developer Guide](https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines.html)
+## [References](REFS.md)
 
-### Korean NLP and Hugging Face
-- [KoELECTRA](https://github.com/monologg/KoELECTRA)
-- [Naver Sentiment Movie Corpus v1.0](https://github.com/e9t/nsmc)
-- [Hugging Face on Amazon SageMaker](https://huggingface.co/docs/sagemaker/main)
-- [Hugging Face examples](https://github.com/huggingface/notebooks/tree/master/sagemaker)
 
 ## License Summary
 
