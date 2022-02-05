@@ -12,7 +12,7 @@ from PIL import Image  # Training container doesn't have this package
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-
+    
     
 def transform_fn(model, payload, request_content_type='application/octet-stream', 
                  response_content_type='application/json'):
