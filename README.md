@@ -67,6 +67,10 @@ SageMaker Neo는 다양한 머신 러닝 프레임워크를 지원하며 정확�
 
 비싼 GPU 인스턴스를 배포 용도로 계속 띄워 놓게 되면 많은 비용이 발생할 수밖에 없고, 비용 절감을 위해 CPU 인스턴스를 쓰기에는 충분한 latency를 보장할 수 없습니다. 이럴 때 바로 Elastic Inference를 사용하시면 됩니다. Elastic Inference는 평소에는 CPU 인스턴스를 사용하다가 추론 시에 GPU 엑셀러레이터를 빌려오는 개념이며, 이를 통해 GPU의 컴퓨팅 파워를 사용하면서 GPU 인스턴스 대비 추론 비용을 최대 75%까지 절감할 수 있습니다. 호스트 인스턴스와 추론 가속 하드웨어를 분리할 수 있는 유연성이 있으므로 애플리케이션에 필요한 CPU, 메모리 및 기타 모든 리소스에 대해 하드웨어를 유연하게 최적화할 수 있습니다. 
 
+### [PTN4. ML Inference Chip (AWS Inferentia)](cost_optimization/ptn_4_ml-inference-chip)
+
+AWS Inferentia는 저렴한 비용으로 높은 처리량(throughput)과 짧은 레이턴시(low latency)의 추론 성능을 제공하기 위해 AWS에서 개발한 머신 러닝 추론 칩입니다. Inferentia 칩은 최신형 커스텀 2세대 Intel® Xeon® 프로세서 및 100Gbps 네트워킹과 결합되어 머신 러닝 추론 애플리케이션을 위한 고성능 및 업계에서 가장 낮은 비용을 제공합니다. AWS Inferentia 기반 Amazon EC2 Inf1 인스턴스는 Inferentia 칩에서 머신 러닝 모델을 컴파일&최적화할 수 있는 AWS Neuron 컴파일러, 런타임 및 프로파일링 도구가 포함되어 있습니다.
+
 
 ## From PoC to Production
 ![production_persona](images/production_persona.png)
@@ -82,6 +86,7 @@ SageMaker 배포 가드레일(Deployment Guardrail)은 프로덕션 환경에서
 ### [PTN3. End-to-end ML pipelines](production/ptn_3_ml-pipeline)
 
 SageMaker Pipelines은 ML 파이프라인과 CI/CD 파이프라인을 쉽고 편리하게 수행할 수 있는 관리형 서비스입니다. re:Invent 2020 서비스 런칭 이후 신규 기능들이 지속적으로 업데이트되고 있으며, 특히 2021년 8월 업데이트된 주요 기능인 Lambda Step을 사용하면 호스팅 엔드포인트 모델 배포를 비롯한 서버리스 작업들을 쉽게 수행할 수 있습니다. 또한 캐싱(caching) 기능을 사용하면 모든 파이프라인을 처음부터 재시작할 필요 없이 변경된 파라메터에 대해서만 빠르게 실험해볼 수 있습니다.
+
 
 
 ## [References](REFS.md)
